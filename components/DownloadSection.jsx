@@ -24,10 +24,6 @@ export function DownloadSection() {
           }}
           className="mb-12"
         >
-          <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#212191] uppercase tracking-widest mb-4">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#212191] inline-block" />
-            Data
-          </span>
           <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight max-w-xl leading-tight">
             Unleash the Power of our Data!
           </h2>
