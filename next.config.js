@@ -3,20 +3,11 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   experimental: {
-    // appDir: true
     externalDir: true,
   },
-  // images: {
-  //   domains: ["https://oaidalleapiprodscus.blob.core.windows.net"],
-  //   remotePatterns: [
-  //     {
-  //       protocol: 'https',
-  //       hostname: 'oaidalleapiprodscus.blob.core.windows.net',
-  //       port: '',
-  //       pathname: '**',
-  //     },
-  //   ],
-  // },
+  allowedDevOrigins: [
+    "b52ce9df-cf25-4b27-b4bc-34526a457ec6-00-27ja1yqdssb9n.picard.replit.dev",
+  ],
 }
 
 module.exports = nextConfig
