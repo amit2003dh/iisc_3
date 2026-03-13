@@ -106,10 +106,10 @@ export function Faqs() {
           }}
           className="mb-16"
         >
-          <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#212191] uppercase tracking-widest mb-4">
+          {/* <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#212191] uppercase tracking-widest mb-4">
             <span className="w-1.5 h-1.5 rounded-full bg-[#212191] inline-block" />
-            FAQ
-          </span>
+            {/* FAQ */}
+          {/* </span> */} 
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6">
             <div>
               <h2

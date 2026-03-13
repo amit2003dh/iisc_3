@@ -17,10 +17,10 @@ export function Team() {
           }}
           className="mb-16"
         >
-          <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#212191] uppercase tracking-widest mb-4">
+          {/* <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#212191] uppercase tracking-widest mb-4">
             <span className="w-1.5 h-1.5 rounded-full bg-[#212191] inline-block" />
             Team
-          </span>
+          </span> */}
           <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight leading-tight">
             Our Team
           </h2>
