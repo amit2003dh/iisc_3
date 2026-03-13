@@ -1,132 +1,90 @@
-import Image from 'next/image'
-
-import { Button } from './Button'
-import { Container } from './Container'
+import Link from 'next/link';
+import Image from 'next/image';
 import IIScLogo from '../assets/IIScLogo.png';
-import MeityLogo from '../assets/Meity.png';
-import ShaipLogo from '../assets/ShaipLogo.png';
-import MagdapLogo from '../assets/Magdaplogo.png';
+import ArtparkLogo from '../assets/ARTPARK.png';
 import GoogleLogo from '../assets/GoogleLogo.png';
-import ArtparkLogo from "../assets/ARTPARK.png";
-import NewronLogo from '../assets/newron-logo2x.png';
 import BhasniLogo from '../assets/bhashini.png';
-import Link from "next/link";
 
-const GoogleComponent = () => {
-    return (
-        <>
-            <span className={'md:-mt-5 text-xs font-thin text-slate-900 ml-16 md:ml-32'}>Supported by</span>
-            <Image
-                style={{width:"200px"}}
-                src={GoogleLogo} alt="Google Logo" />
-        </>
-    );
-};
-
-const Logo =[
-    {name:"",logo:IIScLogo, props: " w-24"},
-    {name:"",logo:ArtparkLogo , props: "h-auto w-64"},
-    {name:"Supported by",logo:GoogleLogo, props: "w-auto h-12 "},
-    {name:" Support of",logo:BhasniLogo, props: "h-20 w-auto "}
-]
-
-
-const IiscComponent = () => {
-    return <Link href={'https://www.iisc.ac.in/'}> <Image className="w-20 h-20 md:w-20 md:h-20-mt-2" src={IIScLogo} alt="IISc Logo" /></Link>;
-};
-
-const ArtparkComponent = () => {
-    return <Link target='_blank' href={'https://www.artpark.in/language-data-ai'}><Image
-        className={"h-auto w-64"} src={ArtparkLogo} alt="Artpark Logo" /></Link>
-};
-// const ArtparkComponent = () => {
-//     return (
-//         <a href="https://www.artpark.in/" target="_blank" rel="noreferrer">
-//             <Image
-//                 style={{width:"200px"}} className={"-mt-2"} src={ArtparkLogo} alt="Artpark Logo" />
-//         </a>
-//     );
-// };
-
-const BhasniComponent = () => {
-    return (
-        <>
-            <span className={'-mt-5 text-xs font-thin text-slate-900'}>support of </span>
-            <div className={"flex justify-end"}>
-                <Image className="w-16 h-16 md:w-18 md:h-24 md:w-auto " src={BhasniLogo} alt="Bhasni Logo" />
-            </div>
-        </>
-    )
-};
+function OrnamentSVG() {
+  return (
+    <svg
+      width="180"
+      height="80"
+      viewBox="0 0 180 80"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      className="opacity-60"
+    >
+      <g stroke="#212191" strokeWidth="1.2" fill="none">
+        <ellipse cx="90" cy="40" rx="85" ry="35" />
+        <ellipse cx="90" cy="40" rx="60" ry="22" />
+        <ellipse cx="90" cy="40" rx="35" ry="12" />
+        <path d="M5 40 Q47.5 10 90 40 Q132.5 70 175 40" strokeDasharray="3 3" />
+        <path d="M5 40 Q47.5 70 90 40 Q132.5 10 175 40" strokeDasharray="3 3" />
+        <circle cx="90" cy="40" r="5" fill="#212191" opacity="0.5" />
+        <circle cx="5" cy="40" r="3" fill="#E8845A" opacity="0.6" />
+        <circle cx="175" cy="40" r="3" fill="#E8845A" opacity="0.6" />
+        <circle cx="90" cy="5" r="3" fill="#9B99E8" opacity="0.5" />
+        <circle cx="90" cy="75" r="3" fill="#9B99E8" opacity="0.5" />
+        <line x1="90" y1="0" x2="90" y2="80" strokeDasharray="2 4" opacity="0.4" />
+        <line x1="0" y1="40" x2="180" y2="40" strokeDasharray="2 4" opacity="0.4" />
+      </g>
+    </svg>
+  );
+}
 
 export function Hero() {
-    return (
-        <Container
-            id="Home"
-            className="pb-16 pt-20 text-center lg:pt-32 bg-slate-50">
-            <h1 className="mx-auto max-w-4xl font-display text-5xl font-medium tracking-tight text-slate-900 sm:text-7xl">
-                Capturing the language landscape for an inclusive{' '}
-                <span className="relative whitespace-nowrap text-blue-600">
-          <svg
-              aria-hidden="true"
-              viewBox="0 0 418 42"
-              className="absolute left-0 top-2/3 h-[0.58em] w-full fill-blue-300/70"
-              preserveAspectRatio="none"
-          >
-            <path d="M203.371.916c-26.013-2.078-76.686 1.963-124.73 9.946L67.3 12.749C35.421 18.062 18.2 21.766 6.004 25.934 1.244 27.561.828 27.778.874 28.61c.07 1.214.828 1.121 9.595-1.176 9.072-2.377 17.15-3.92 39.246-7.496C123.565 7.986 157.869 4.492 195.942 5.046c7.461.108 19.25 1.696 19.17 2.582-.107 1.183-7.874 4.31-25.75 10.366-21.992 7.45-35.43 12.534-36.701 13.884-2.173 2.308-.202 4.407 4.442 4.734 2.654.187 3.263.157 15.593-.78 35.401-2.686 57.944-3.488 88.365-3.143 46.327.526 75.721 2.23 130.788 7.584 19.787 1.924 20.814 1.98 24.557 1.332l.066-.011c1.201-.203 1.53-1.825.399-2.335-2.911-1.31-4.893-1.604-22.048-3.261-57.509-5.556-87.871-7.36-132.059-7.842-23.239-.254-33.617-.116-50.627.674-11.629.54-42.371 2.494-46.696 2.967-2.359.259 8.133-3.625 26.504-9.81 23.239-7.825 27.934-10.149 28.304-14.005.417-4.348-3.529-6-16.878-7.066Z" />
-          </svg>
-          <span className="relative">digital India</span>
-        </span>{' '}
-            </h1>
-            <p className="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-slate-700">
-                Project Vaani is one of the largest datasets of Indian dialects ever to exist. Upon completion, it will contain more than 150,000 hours of audio across all districts in India.
-            </p>
-            <div className="mt-36 lg:mt-44 sm:block hidden">
-                <ul
-                    role="list"
-                    className="mt-8 flex items-center justify-center gap-x-8 sm:flex-col sm:gap-x-0 sm:gap-y-10 xl:flex-row xl:gap-x-12 xl:gap-y-0"
-                >
-                    {[
-                        [
-                            { name: 'IISC', logo: <IiscComponent />, width: 100, className: "dark:invert" ,text:"" },
-                            { name: 'Artpark', logo: <ArtparkComponent/>, width: 200 ,text:"",className: 'invert brightness-150 bg-slate-50'},
+  return (
+    <section
+      id="Home"
+      className="hero-gradient min-h-screen flex flex-col items-center justify-center pt-28 pb-16 px-4 text-center"
+    >
+      <div className="flex flex-col items-center gap-8 max-w-4xl mx-auto">
+        <OrnamentSVG />
 
-                        ],
-                        [
-                            { name: 'Google', logo: <GoogleComponent/>, width: 200, className: "dark:invert" ,text:"Supported by" },
-                            { name: 'Bhashini', logo: <BhasniComponent />, width: 200, className: "dark:invert" ,text:"Proudly in support of " },
-                        ],
+        <div className="inline-flex items-center gap-2 border border-[#212191]/30 rounded-full px-4 py-1.5 text-sm text-[#212191] bg-white/60 backdrop-blur-sm shadow-sm">
+          <span className="w-2 h-2 rounded-full bg-[#212191] animate-pulse"></span>
+          India's Sovereign Language Dataset
+        </div>
 
-                    ].map((group, groupIndex) => (
-                        <li key={groupIndex}>
-                            <ul
-                                role="list"
-                                className="flex flex-col items-center gap-y-8 sm:flex-row sm:gap-x-12 sm:gap-y-0"
-                            >
-                                {group.map((company) => (
-                                    <li key={company.name} className=" flex flex-col gap-3">
-                                        {company.logo}
-                                    </li>
-                                ))}
-                            </ul>
-                        </li>
-                    ))}
-                </ul>
-            </div>
+        <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight text-gray-900 leading-tight">
+          AI for all from India
+        </h1>
 
-            {/*--------- for Mobile Screen--------------*/}
+        <p className="text-lg sm:text-xl text-gray-500 max-w-2xl leading-relaxed">
+          Built on grassroots data collection. Powered by 150,000+ hours of audio.<br />
+          Delivering India's linguistic diversity at scale.
+        </p>
 
-            <div className="mt-36  sm:hidden  mr-8">
-                <div className="grid grid-cols-2 gap-4 justify-between items-center bg-slate-50">
-                    {Logo.map((company) => (
-                        <div className="relative flex flex-col gap-2 items-center justify-center" key={company.name}>
-                            <span className="text-xs font-semibold text-zinc-900 ml-16 " style={{ fontSize: "0.5rem" }}>{company.name}</span>
-                            <Image className={` ${company.props} invert-[.12]`} src={company.logo} alt={company.name}  />
-                        </div>
-                    ))}
-                </div>
-            </div>
+        <Link
+          href="https://huggingface.co/datasets/ARTPARK-IISc/VAANI"
+          target="_blank"
+          className="inline-flex items-center gap-2 text-base font-semibold text-white bg-gray-900 hover:bg-gray-700 transition-colors px-7 py-3 rounded-full shadow-md"
+        >
+          Experience Vaani
+        </Link>
+      </div>
 
-        </Container>
-    )
+      <div className="mt-24 w-full max-w-5xl mx-auto">
+        <p className="text-xs font-semibold tracking-widest text-gray-400 uppercase mb-8 text-center">
+          India Builds with Vaani
+        </p>
+        <div className="flex flex-wrap items-center justify-center gap-10">
+          <Link href="https://www.iisc.ac.in/" target="_blank" className="opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0">
+            <Image src={IIScLogo} alt="IISc" width={52} height={52} className="object-contain h-12 w-auto" />
+          </Link>
+          <Link href="https://artpark.in/" target="_blank" className="opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0">
+            <Image src={ArtparkLogo} alt="Artpark" width={180} height={48} className="object-contain h-10 w-auto" />
+          </Link>
+          <Link href="https://cloud.google.com/" target="_blank" className="opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0">
+            <Image src={GoogleLogo} alt="Google" width={120} height={40} className="object-contain h-8 w-auto" />
+          </Link>
+          <Link href="https://bhashini.gov.in/" target="_blank" className="opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0">
+            <Image src={BhasniLogo} alt="Bhashini" width={80} height={64} className="object-contain h-12 w-auto" />
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
 }

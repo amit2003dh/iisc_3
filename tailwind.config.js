@@ -36,6 +36,12 @@ module.exports = {
                 lesser : ['Inter', 'sans-serif'],
             },
             colors: {
+                brand: {
+                    primary: '#212191',
+                    dark: '#11115B',
+                    accent: '#FAFCFF',
+                    bg: '#FAFAFA',
+                },
                 "blue-gray": {
                     900: "#282c31",
                     800: "#2f333a",

@@ -19,7 +19,7 @@ export default function Home({ data }) {
     setIsClient(true);
   }, []);
   return (
-    <div className={"bg-slate-50"}>
+    <div className={"bg-[#FAFAFA]"}>
       {isClient && <Header />}
       <main>
         <Hero />
