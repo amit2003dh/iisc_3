@@ -1,168 +1,146 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import { Button } from './Button'
-import { Container } from './Container'
+import Image from 'next/image';
+import Link from 'next/link';
+import { Container } from './Container';
+import { useInView } from '../hooks/useInView';
 
-import article1 from '../images/articles/article1.webp'
-import article2 from '../images/articles/article2.webp'
-import article3 from '../images/articles/article3.webp'
-import article4 from '../images/articles/article4.jpg'
-import article5 from '../images/articles/article5.jpg'
-import article6 from '../images/articles/article6.jpg'
-import article7 from "../images/articles/image7.jpg";
-import article8 from "../images/articles/image8.jpg";
-import article9 from "../images/articles/image9.jpg";
-import article10 from "../images/articles/article10.jpg";
+import article1 from '../images/articles/article1.webp';
+import article3 from '../images/articles/article3.webp';
+import article5 from '../images/articles/article5.jpg';
+import article8 from '../images/articles/image8.jpg';
+import article10 from '../images/articles/article10.jpg';
+import article1a from '../images/articles/article1.webp';
 
+const articles = [
+  {
+    authorName: 'RAFI KO TECH',
+    href: "https://newsbytes.ph/2025/08/14/google-partners-with-ai-projects-to-bridge-asian-language-barriers/",
+    articleTitle: "Google partners with AI projects to bridge Asian language barriers",
+    date: "14 Aug 2025",
+    articleImage: article10,
+  },
+  {
+    authorName: 'ISHA RAUTELA',
+    href: "https://www.thehindubusinessline.com/news/variety/project-vaani-scales-decibels-as-it-maps-language-landscape-of-india/article66304920.ece",
+    articleTitle: "Project Vaani scales decibels as it maps language landscape of India",
+    date: "December 25, 2022",
+    articleImage: article3,
+  },
+  {
+    authorName: 'VIKAS SN',
+    href: "https://www.moneycontrol.com/technology/google-woos-indias-booming-ai-developer-community-with-new-tools-access-to-latest-models-article-12770940.html?classic=true",
+    articleTitle: "Google woos India's booming AI developer community with new tools",
+    date: "17 Jul 2024",
+    articleImage: article5,
+  },
+  {
+    authorName: 'Milin Stanly',
+    href: "https://indiaai.gov.in/article/india-turns-to-ai-to-capture-its-121-languages-for-digital-services",
+    articleTitle: "IISc/ARTPARK's project Vaani — enabling speech technologies in Indian languages",
+    date: "Dec 20, 2023",
+    articleImage: article8,
+  },
+  {
+    authorName: 'Suraksha P',
+    href: "https://economictimes.indiatimes.com/tech/technology/under-bhashini-iisc-to-open-source-16000-hours-of-speech-data/articleshow/111639325.cms",
+    articleTitle: "Under Bhashini, IISc to open source 16,000 hours of speech data",
+    date: "11 Jul 2024",
+    articleImage: article3,
+  },
+  {
+    authorName: 'Sohini Bagchi',
+    href: "https://www.livemint.com/technology/tech-news/artparkiisc-google-to-bring-innovation-to-india-s-diverse-languages-11671445526332.html",
+    articleTitle: "Artpark-IISc, Google to bring innovation to India's diverse languages",
+    date: "19 Dec 2022",
+    articleImage: article1a,
+  },
+];
 
-const testimonials = [
-  [
-    {
-      content:"",
-      authorName: 'RAFI KO TECH',
-      href: "https://newsbytes.ph/2025/08/14/google-partners-with-ai-projects-to-bridge-asian-language-barriers/",
-      articleTitle: "Google partners with AI projects to bridge Asian language barriers",
-      date:"14 Aug 2025",
-      articleImage: article10
-    },
-    {
-      content:
-          'The best part about TaxPal is every time I pay my employees, my bank balance doesn’t go down like it used to. Looking forward to spending this extra cash when I figure out why my card is being declined.',
-      authorName: 'ISHA RAUTELA',
-      href: "https://www.thehindubusinessline.com/news/variety/project-vaani-scales-decibels-as-it-maps-language-landscape-of-india/article66304920.ece",
-      articleTitle: "Project Vaani scales decibels as it maps language landscape of India",
-      date:" December 25, 2022 ",
-      articleImage: article3
-    },
-    
-    
-  ],
-  [
-    
-    {
-      content:"",
-      authorName: 'VIKAS SN',
-      href: "https://www.moneycontrol.com/technology/google-woos-indias-booming-ai-developer-community-with-new-tools-access-to-latest-models-article-12770940.html?classic=true",
-      articleTitle: "Google woos India's booming AI developer community with new tools",
-      date:"17 Jul 2024",
-      articleImage: article5
-    },
-    {
-      content :' This is the fourth email I’ve sent to your support team. I am literally being held in jail for tax fraud. Please answer your damn emails, this is important.,',
-      authorName: 'Milin Stanly',
-      href:"https://indiaai.gov.in/article/india-turns-to-ai-to-capture-its-121-languages-for-digital-services",
-      articleTitle: "IISc/ARTPARK’s project Vaani featured as one of the few projects actively involved in enabling speech technologies in India languages",
-      date:"Dec 20, 2023",
-      articleImage: article8
-    },
-    
-    
-  ],
-  [
-    
-    {
-      content:"",
-      authorName: 'Suraksha P',
-      href: "https://economictimes.indiatimes.com/tech/technology/under-bhashini-iisc-to-open-source-16000-hours-of-speech-data/articleshow/111639325.cms?from=mdr",
-      articleTitle: "Under Bashini, IISc to open source 16,000 hours of speech data",
-      date:"11 Jul 2024",
-      articleImage: article3
-    },
-    {
-      content:
-          'TaxPal is so easy to use I can’t help but wonder if it’s really doing the things the government expects me to do.',
-      authorName: 'Sohini Bagchi',
-      href: "https://www.livemint.com/technology/tech-news/artparkiisc-google-to-bring-innovation-to-india-s-diverse-languages-11671445526332.html",
-      articleTitle: "Artpark-IISc, Google to bring innovation to India’s diverse languages",
-      date:"19 Dec 2022",
-      articleImage: article1
-    },
-    
-
-  ],
-
-  
-]
-
-function QuoteIcon(props) {
+function ArticleCard({ article, index, inView }) {
   return (
-      <svg aria-hidden="true" width={105} height={78} {...props}>
-        <path d="M25.086 77.292c-4.821 0-9.115-1.205-12.882-3.616-3.767-2.561-6.78-6.102-9.04-10.622C1.054 58.534 0 53.411 0 47.686c0-5.273.904-10.396 2.712-15.368 1.959-4.972 4.746-9.567 8.362-13.786a59.042 59.042 0 0 1 12.43-11.3C28.325 3.917 33.599 1.507 39.324 0l11.074 13.786c-6.479 2.561-11.677 5.951-15.594 10.17-3.767 4.219-5.65 7.835-5.65 10.848 0 1.356.377 2.863 1.13 4.52.904 1.507 2.637 3.089 5.198 4.746 3.767 2.41 6.328 4.972 7.684 7.684 1.507 2.561 2.26 5.5 2.26 8.814 0 5.123-1.959 9.19-5.876 12.204-3.767 3.013-8.588 4.52-14.464 4.52Zm54.24 0c-4.821 0-9.115-1.205-12.882-3.616-3.767-2.561-6.78-6.102-9.04-10.622-2.11-4.52-3.164-9.643-3.164-15.368 0-5.273.904-10.396 2.712-15.368 1.959-4.972 4.746-9.567 8.362-13.786a59.042 59.042 0 0 1 12.43-11.3C82.565 3.917 87.839 1.507 93.564 0l11.074 13.786c-6.479 2.561-11.677 5.951-15.594 10.17-3.767 4.219-5.65 7.835-5.65 10.848 0 1.356.377 2.863 1.13 4.52.904 1.507 2.637 3.089 5.198 4.746 3.767 2.41 6.328 4.972 7.684 7.684 1.507 2.561 2.26 5.5 2.26 8.814 0 5.123-1.959 9.19-5.876 12.204-3.767 3.013-8.588 4.52-14.464 4.52Z" />
-      </svg>
-  )
+    <Link href={article.href} target="_blank">
+      <div
+        style={{
+          transitionDelay: `${index * 80}ms`,
+          opacity: inView ? 1 : 0,
+          transform: inView ? 'translateY(0)' : 'translateY(32px)',
+          transition: 'opacity 0.65s ease, transform 0.65s ease',
+        }}
+        className="group bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden hover:shadow-xl hover:-translate-y-1.5 transition-all duration-400 flex flex-col h-full"
+      >
+        <div className="relative h-48 overflow-hidden">
+          <Image
+            src={article.articleImage}
+            alt={article.articleTitle}
+            fill
+            className="object-cover group-hover:scale-105 transition-transform duration-500"
+            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+        </div>
+        <div className="p-6 flex flex-col flex-1">
+          <p className="text-xs font-semibold text-[#212191] uppercase tracking-wider mb-3">
+            {article.date}
+          </p>
+          <h3 className="text-base font-semibold text-gray-900 leading-snug flex-1 group-hover:text-[#212191] transition-colors">
+            {article.articleTitle}
+          </h3>
+          <div className="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
+            <span className="text-xs text-gray-400">By {article.authorName}</span>
+            <span className="text-xs font-semibold text-[#212191] group-hover:gap-2 flex items-center gap-1 transition-all">
+              Read
+              <svg className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </span>
+          </div>
+        </div>
+      </div>
+    </Link>
+  );
 }
 
 export function ArticlesSection() {
+  const [headRef, headInView] = useInView();
+  const [gridRef, gridInView] = useInView();
+
   return (
-      <section
-          id="Media"
-          aria-label="Pricing"
-          className="bg-blue-500 py-20 sm:py-32"
-      >
-        <Container>
-          <div className="mx-auto max-w-2xl md:text-center">
-            <h2 className="font-display text-3xl tracking-tight text-white sm:text-4xl">
-              Vaani in the News
+    <section id="Media" aria-label="Media & Articles" className="py-24 sm:py-32 bg-white">
+      <Container>
+        <div
+          ref={headRef}
+          style={{
+            opacity: headInView ? 1 : 0,
+            transform: headInView ? 'translateY(0)' : 'translateY(24px)',
+            transition: 'opacity 0.7s ease, transform 0.7s ease',
+          }}
+          className="flex flex-col sm:flex-row sm:items-end justify-between mb-14 gap-6"
+        >
+          <div>
+            <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#212191] uppercase tracking-widest mb-4">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#212191] inline-block" />
+              Media
+            </span>
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight leading-tight">
+              In The News
             </h2>
-            <p className="mt-4 text-lg tracking-tight text-slate-300">
-              Stay updated with Project Vaani’s media appearances. Read about our mission, our work, and our impact as covered by the press
-            </p>
           </div>
-          <ul
-              role="list"
-              className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-6 sm:gap-8 lg:mt-20 lg:max-w-none lg:grid-cols-3"
+          <Link
+            href="/articles"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-[#212191] border border-[#212191]/30 px-5 py-2.5 rounded-full hover:bg-[#212191]/5 transition-colors flex-shrink-0"
           >
-            {testimonials.map((column, columnIndex) => (
-                <li key={columnIndex}>
-                  <ul role="list" className="flex flex-col gap-y-6 sm:gap-y-8">
-                    {column.map((testimonial, testimonialIndex) => (
-                        <li key={testimonialIndex}>
-                          <Link target='_blank' href={testimonial.href}>
-                            <figure className="relative rounded-2xl bg-white shadow-xl shadow-slate-900/10">
-                              {/* <QuoteIcon className="absolute left-6 top-6 fill-slate-100" /> */}
-                              {/* <blockquote className="relative">
-                        <p className="text-lg tracking-tight text-slate-900">
-                          {testimonial.content}
-                        </p>
-                      </blockquote> */}
-                              <Image className='rounded-t-xl' alt={testimonial.articleTitle} src={testimonial.articleImage} />
-                              <figcaption className="relative mt-2 flex items-center justify-between border-slate-100 p-6">
-                                <div>
-                                  <div className="font-display text-base text-slate-900">
-                                    {testimonial.articleTitle}
-                                  </div>
-                                  <div className="mt-1 text-sm text-slate-500 flex flex-col justify-between">
-                                    <span className={"font-thin text-xs text-zinc-800"}>{testimonial.date}</span>
-                                    <span>By {testimonial.authorName}</span>
-                                  </div>
-                                </div>
-                                <div className="overflow-hidden rounded-full bg-slate-50">
-                                  {/* <Image
-                            className="h-14 w-14 object-cover"
-                            src={testimonial.author.image}
-                            alt=""
-                            width={56}
-                            height={56}
-                          /> */}
-                                </div>
-                              </figcaption>
-                            </figure>
-                          </Link>
-                        </li>
-                    ))}
-                  </ul>
-                </li>
-            ))}
-          </ul>
-          <div className='flex justify-center'>
-            <Button color="white" className="mt-10">
-              {/*<Link target='_blank' href="https://sonic-app-prod-6njyx2yrkq-as.a.run.app/vaani" >*/}
-              <Link  href="/articles" >
-                Explore more articles
-              </Link>
-            </Button>
-          </div>
-        </Container>
-      </section>
-  )
+            Explore all articles
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </Link>
+        </div>
+
+        <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {articles.map((article, i) => (
+            <ArticleCard key={i} article={article} index={i} inView={gridInView} />
+          ))}
+        </div>
+      </Container>
+    </section>
+  );
 }
