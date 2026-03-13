@@ -2,8 +2,10 @@
 
 import { Fragment } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Popover, Transition } from "@headlessui/react";
 import clsx from "clsx";
+import VaaniLogo from "../assets/vaanilogo.png";
 
 function MobileNavLink({ href, children }) {
   return (
@@ -103,29 +105,18 @@ const NAV_LINKS = [
 export function Header() {
   return (
     <div className="fixed top-0 left-0 right-0 z-50">
-      <div className="announcement-bar py-2 px-4 text-center text-white text-sm font-medium flex items-center justify-center gap-2 flex-wrap">
-        <span className="inline-flex items-center gap-1 bg-white/25 text-white text-xs font-bold px-2 py-0.5 rounded-full tracking-wide">
-          NEW
-        </span>
-        <span className="text-white/90">
-          Vaani 3B audio hours are open-sourced
-        </span>
-        <Link
-          href="https://huggingface.co/datasets/ARTPARK-IISc/VAANI"
-          target="_blank"
-          className="inline-flex items-center gap-1 font-semibold text-white hover:underline"
-        >
-          Explore →
-        </Link>
-      </div>
-
       <nav className="nav-blur border-b border-gray-200/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex h-14 items-center justify-between">
-            <Link href="/" className="flex items-center">
-              <span className="text-xl font-bold tracking-tight text-[#212191]">
-                vaani
-              </span>
+          <div className="flex h-16 items-center justify-between">
+            <Link href="/" className="flex items-center gap-2">
+              <Image
+                src={VaaniLogo}
+                width={110}
+                height={36}
+                alt="Vaani"
+                className="h-9 w-auto object-contain"
+                priority
+              />
             </Link>
 
             <div className="hidden md:flex items-center gap-7">
@@ -133,7 +124,7 @@ export function Header() {
                 <Link
                   key={link.label}
                   href={link.href}
-                  className="text-sm text-gray-600 hover:text-gray-900 transition-colors font-medium"
+                  className="text-sm text-gray-600 hover:text-[#212191] transition-colors font-medium"
                 >
                   {link.label}
                 </Link>
@@ -144,7 +135,7 @@ export function Header() {
               <Link
                 href="https://huggingface.co/datasets/ARTPARK-IISc/VAANI"
                 target="_blank"
-                className="inline-flex items-center text-sm font-semibold text-white px-4 py-1.5 rounded-full bg-gray-900 hover:bg-gray-800 transition-colors"
+                className="inline-flex items-center text-sm font-semibold text-white px-4 py-1.5 rounded-full bg-[#212191] hover:bg-[#11115B] transition-colors"
               >
                 Explore Data
               </Link>
