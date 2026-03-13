@@ -36,7 +36,7 @@ export function ExploreData({ data }) {
               <span className="text-[#212191]">Vernacular Vista</span> with Vaani
             </h2>
             <p className="text-gray-500 text-lg leading-relaxed">
-              Explore the linguistic diversity of India in a click. Our dataset is intended to be a treasure trove of speech data from across India's districts — a comprehensive overview emphasizing language variety, providing a unique glimpse into India's rich cultural tapestry.
+              Explore the linguistic diversity of India in a click. Our dataset is intended to be a treasure trove of speech data from across India's districts a comprehensive overview emphasizing language variety, providing a unique glimpse into India's rich cultural tapestry.
             </p>
           </div>
         </div>

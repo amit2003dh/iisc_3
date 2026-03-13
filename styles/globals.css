@@ -91,6 +91,34 @@ body {
     transform: scale(1);
 }
 
+.delay-100 { transition-delay: 100ms; }
+.delay-200 { transition-delay: 200ms; }
+.delay-300 { transition-delay: 300ms; }
+.delay-400 { transition-delay: 400ms; }
+.delay-500 { transition-delay: 500ms; }
+.delay-600 { transition-delay: 600ms; }
+.delay-700 { transition-delay: 700ms; }
+
+@keyframes slideUpFade {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInOnly {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.anim-slide-up {
+  animation: slideUpFade 0.7s ease both;
+}
+.anim-fade-in {
+  animation: fadeInOnly 0.8s ease both;
+}
+.anim-delay-1 { animation-delay: 120ms; }
+.anim-delay-2 { animation-delay: 260ms; }
+.anim-delay-3 { animation-delay: 400ms; }
+.anim-delay-4 { animation-delay: 540ms; }
+.anim-delay-5 { animation-delay: 680ms; }
+
 @keyframes marquee {
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }

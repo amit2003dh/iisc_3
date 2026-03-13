@@ -49,12 +49,11 @@ export function Hero() {
         </div>
 
         <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight text-gray-900 leading-tight">
-          AI for all from India
+          Capturing the language landscape for an inclusive digital India
         </h1>
 
         <p className="text-lg sm:text-xl text-gray-500 max-w-2xl leading-relaxed">
-          Built on grassroots data collection. Powered by 150,000+ hours of audio.<br />
-          Delivering India's linguistic diversity at scale.
+          Project Vaani is one of the largest datasets of Indian dialects ever to exist. Upon completion, it will contain more than 150,000 hours of audio across all districts in India.
         </p>
 
         <Link

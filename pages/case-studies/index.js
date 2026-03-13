@@ -7,9 +7,12 @@ import { useState, useEffect } from "react";
 
 export default function CaseStudies() {
   const [isClient, setIsClient] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
+    const t = setTimeout(() => setMounted(true), 60);
+    return () => clearTimeout(t);
   }, []);
 
   return (
@@ -17,13 +20,23 @@ export default function CaseStudies() {
       {isClient && <CaseStudiesHeader />}
       <main>
         {/* Hero Banner Section */}
-        <section className="bg-blue-600 py-10 sm:py-20">
+        <section className="relative bg-gradient-to-br from-blue-700 via-blue-600 to-indigo-700 py-16 sm:py-24 overflow-hidden">
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute -top-20 -right-20 w-80 h-80 bg-white/5 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-900/25 rounded-full blur-2xl" />
+          </div>
           <Container>
-            <div className="text-center">
-              <h1 className="font-display text-2xl tracking-tight text-white sm:text-3xl md:text-3xl font-bold">
+            <div className="text-center relative z-10">
+              <h1
+                className={`font-display text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight anim-slide-up ${mounted ? '' : 'opacity-0'}`}
+                style={{ animationPlayState: mounted ? 'running' : 'paused' }}
+              >
                 How Startups Are Building on Vaani
               </h1>
-              <p className="mt-6 text-lg tracking-tight text-blue-100 max-w-3xl mx-auto">
+              <p
+                className={`mt-6 text-lg text-blue-100 max-w-3xl mx-auto leading-relaxed anim-slide-up anim-delay-2 ${mounted ? '' : 'opacity-0'}`}
+                style={{ animationPlayState: mounted ? 'running' : 'paused' }}
+              >
                 Discover how innovators are leveraging the Vaani dataset to solve real-world problems in speech, AI, and beyond.
               </p>
             </div>
@@ -37,17 +50,20 @@ export default function CaseStudies() {
         <CaseStudiesSection />
 
         {/* Call to Action Section */}
-        <section className="bg-blue-600 py-10 sm:py-8">
+        <section className="relative bg-gradient-to-br from-blue-700 via-blue-600 to-indigo-700 py-16 overflow-hidden">
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute -top-10 right-10 w-56 h-56 bg-white/5 rounded-full blur-3xl" />
+          </div>
           <Container>
-            <div className="text-center">
-              <h2 className="font-display text-2xl tracking-tight text-white sm:text-3xl md:text-3xl mb-8 font-bold">
+            <div className="text-center relative z-10">
+              <h2 className="font-display text-2xl sm:text-3xl font-bold text-white mb-8">
                 Want to Build with the Vaani Dataset?
               </h2>
-              <a 
+              <a
                 href="https://huggingface.co/datasets/ARTPARK-IISc/Vaani"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-full py-2 px-4 text-sm font-semibold bg-white text-blue-600 hover:bg-blue-50 focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                className="inline-flex items-center justify-center rounded-full py-3 px-8 text-base font-semibold bg-white text-blue-700 hover:bg-blue-50 transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
               >
                 Get Access
               </a>

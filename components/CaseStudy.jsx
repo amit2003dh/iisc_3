@@ -1,14 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Container } from './Container';
+import { ScrollReveal } from './ScrollReveal';
 
-// Content Block Components
-// const ParagraphBlock = ({ text }) => (
-//   <p className="text-slate-700 leading-relaxed mb-4 text-base">
-//     {text.split('**').map((part, index) => 
-//       index % 2 === 1 ? <strong key={index} className="font-semibold text-slate-900">{part}</strong> : part
-//     )}
 const ParagraphBlock = ({ text }) => {
   const parseLinks = (input) => {
     const regex = /\[(.*?)\]\((.*?)\)/g;
@@ -20,7 +15,6 @@ const ParagraphBlock = ({ text }) => {
       if (match.index > lastIndex) {
         parts.push(input.slice(lastIndex, match.index));
       }
-
       parts.push(
         <a
           key={parts.length}
@@ -32,7 +26,6 @@ const ParagraphBlock = ({ text }) => {
           {match[1]}
         </a>
       );
-
       lastIndex = regex.lastIndex;
     }
 
@@ -45,19 +38,12 @@ const ParagraphBlock = ({ text }) => {
 
   const parseBold = (nodes) => {
     return nodes.flatMap((node, index) => {
-      if (typeof node !== "string") {
-        return node;
-      }
-
-      const boldSplit = node.split("**");
-
+      if (typeof node !== 'string') return node;
+      const boldSplit = node.split('**');
       return boldSplit.map((part, i) => {
         if (i % 2 === 1) {
           return (
-            <strong
-              key={`${index}-${i}`}
-              className="font-semibold text-slate-900"
-            >
+            <strong key={`${index}-${i}`} className="font-semibold text-slate-900">
               {part}
             </strong>
           );
@@ -67,7 +53,7 @@ const ParagraphBlock = ({ text }) => {
     });
   };
 
-  const withLinks = parseLinks(text);   
+  const withLinks = parseLinks(text);
   const withBold = parseBold(withLinks);
 
   return (
@@ -80,14 +66,18 @@ const ParagraphBlock = ({ text }) => {
 const BulletsBlock = ({ items }) => (
   <ul className="space-y-3 mb-6">
     {items.map((item, index) => (
-      <li key={index} className="flex items-start">
-        <div className="flex-shrink-0 w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3"></div>
-        <span className="text-slate-700 leading-relaxed">
-          {item.split('**').map((part, partIndex) => 
-            partIndex % 2 === 1 ? <strong key={partIndex} className="font-semibold text-slate-900">{part}</strong> : part
-          )}
-        </span>
-      </li>
+      <ScrollReveal key={index} animClass="fade-up" delay={index * 60} threshold={0.05}>
+        <li className="flex items-start">
+          <div className="flex-shrink-0 w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3" />
+          <span className="text-slate-700 leading-relaxed">
+            {item.split('**').map((part, partIndex) =>
+              partIndex % 2 === 1
+                ? <strong key={partIndex} className="font-semibold text-slate-900">{part}</strong>
+                : part
+            )}
+          </span>
+        </li>
+      </ScrollReveal>
     ))}
   </ul>
 );
@@ -99,11 +89,11 @@ const SubheadingBlock = ({ text }) => (
 );
 
 const TableBlock = ({ title, headers, rows, highlight = [] }) => (
-  <div className="my-8">
+  <ScrollReveal animClass="fade-up" className="my-8">
     {title && (
       <h5 className="text-base font-semibold text-slate-900 mb-4 text-center">{title}</h5>
     )}
-    <div className="overflow-x-auto shadow-lg rounded-lg">
+    <div className="overflow-x-auto shadow-lg rounded-xl">
       <table className="w-full border-collapse bg-white">
         <thead>
           <tr className="bg-gradient-to-r from-blue-600 to-blue-700 text-white">
@@ -116,11 +106,11 @@ const TableBlock = ({ title, headers, rows, highlight = [] }) => (
         </thead>
         <tbody>
           {rows.map((row, rowIndex) => (
-            <tr key={rowIndex} className={`${rowIndex % 2 === 0 ? 'bg-white' : 'bg-slate-50'} hover:bg-blue-50 transition-colors`}>
+            <tr key={rowIndex} className={`${rowIndex % 2 === 0 ? 'bg-white' : 'bg-slate-50'} hover:bg-blue-50 transition-colors duration-200`}>
               {row.map((cell, cellIndex) => (
-                <td key={cellIndex} className={`px-6 py-4 text-sm border-b border-slate-200 border-r border-slate-200 last:border-r-0 ${
-                  highlight.some(h => cell.includes(h)) 
-                    ? 'font-bold text-blue-700 bg-blue-100' 
+                <td key={cellIndex} className={`px-6 py-4 text-sm border-b border-slate-200 border-r last:border-r-0 ${
+                  highlight.some(h => cell.includes(h))
+                    ? 'font-bold text-blue-700 bg-blue-100'
                     : 'text-slate-700'
                 }`}>
                   {cell.includes('[') && cell.includes('](') ? (
@@ -143,9 +133,7 @@ const TableBlock = ({ title, headers, rows, highlight = [] }) => (
                         return part;
                       })}
                     </span>
-                  ) : (
-                    cell
-                  )}
+                  ) : cell}
                 </td>
               ))}
             </tr>
@@ -153,10 +141,9 @@ const TableBlock = ({ title, headers, rows, highlight = [] }) => (
         </tbody>
       </table>
     </div>
-  </div>
+  </ScrollReveal>
 );
 
-// Content Renderer
 const ContentRenderer = ({ content }) => {
   return content.map((block, index) => {
     switch (block.type) {
@@ -168,10 +155,10 @@ const ContentRenderer = ({ content }) => {
         return <SubheadingBlock key={index} text={block.text} />;
       case 'table':
         return (
-          <TableBlock 
-            key={index} 
+          <TableBlock
+            key={index}
             title={block.title}
-            headers={block.headers} 
+            headers={block.headers}
             rows={block.rows}
             highlight={block.highlight}
           />
@@ -182,47 +169,57 @@ const ContentRenderer = ({ content }) => {
   });
 };
 
-// Section Component
-const Section = ({ section }) => (
-  <section className="mb-12">
-    <h2 className="text-2xl font-bold text-slate-900 mb-6 pb-2 border-b-2 border-blue-600">
-      {section.title}
-    </h2>
-    
-    <div className="prose prose-slate max-w-none">
-      <ContentRenderer content={section.content} />
-      
-      {section.subsections && section.subsections.map((subsection, index) => (
-        <div key={index} className="mt-10">
-          <h3 className="text-xl font-semibold text-slate-900 mb-4 flex items-center">
-            <span className="bg-blue-600 text-white text-sm px-2 py-1 rounded mr-3">
-              {String.fromCharCode(65 + index)}
-            </span>
-            {subsection.title}
-          </h3>
-          <div className="ml-8">
-            <ContentRenderer content={subsection.content} />
+const Section = ({ section, index }) => (
+  <ScrollReveal animClass="fade-up" delay={index * 40} className="mb-12">
+    <section>
+      <h2 className="text-2xl font-bold text-slate-900 mb-6 pb-2 border-b-2 border-blue-600">
+        {section.title}
+      </h2>
+      <div className="prose prose-slate max-w-none">
+        <ContentRenderer content={section.content} />
+        {section.subsections && section.subsections.map((subsection, subIndex) => (
+          <div key={subIndex} className="mt-10">
+            <h3 className="text-xl font-semibold text-slate-900 mb-4 flex items-center">
+              <span className="bg-blue-600 text-white text-sm px-2 py-1 rounded mr-3">
+                {String.fromCharCode(65 + subIndex)}
+              </span>
+              {subsection.title}
+            </h3>
+            <div className="ml-8">
+              <ContentRenderer content={subsection.content} />
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
-  </section>
+        ))}
+      </div>
+    </section>
+  </ScrollReveal>
 );
 
-// Main CaseStudy Component
 export function CaseStudy({ caseStudyData }) {
   const { metadata, header, sections } = caseStudyData;
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const t = setTimeout(() => setMounted(true), 50);
+    return () => clearTimeout(t);
+  }, []);
 
   return (
     <div className="min-h-screen bg-slate-50">
-      {/* Header Section */}
-      <section className="bg-gradient-to-br from-blue-600 to-blue-800 text-white py-16">
+      {/* Hero Section */}
+      <section className="relative bg-gradient-to-br from-blue-700 via-blue-600 to-indigo-700 text-white py-20 overflow-hidden">
+        {/* Decorative blobs */}
+        <div className="absolute inset-0 pointer-events-none select-none">
+          <div className="absolute -top-16 -right-16 w-72 h-72 bg-white/5 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 left-0 w-56 h-56 bg-indigo-900/30 rounded-full blur-2xl" />
+        </div>
+
         <Container>
-          <div className="max-w-4xl mx-auto text-center">
-            {/* Company Info */}
-            <div className="flex items-center justify-center mb-8">
-              {metadata.companyLogo && (
-                <div className="flex items-center bg-white rounded-full px-6 py-3 shadow-lg">
+          <div className="max-w-4xl mx-auto text-center relative z-10">
+            {metadata.companyLogo && (
+              <div className={`flex items-center justify-center mb-8 anim-fade-in ${mounted ? '' : 'opacity-0'}`}
+                style={{ animationPlayState: mounted ? 'running' : 'paused' }}>
+                <div className="flex items-center bg-white rounded-full px-6 py-3 shadow-xl">
                   <Image
                     src={metadata.companyLogo}
                     alt={`${metadata.companyName} logo`}
@@ -232,21 +229,21 @@ export function CaseStudy({ caseStudyData }) {
                   />
                   <span className="font-semibold text-slate-900">{metadata.companyName}</span>
                 </div>
-              )}
-            </div>
+              </div>
+            )}
 
-            {/* Main Title */}
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
+            <h1 className={`text-4xl md:text-5xl font-bold mb-4 leading-tight anim-slide-up anim-delay-1 ${mounted ? '' : 'opacity-0'}`}
+              style={{ animationPlayState: mounted ? 'running' : 'paused' }}>
               {header.mainTitle}
             </h1>
-            
-            {/* Subtitle */}
-            <p className="text-xl md:text-2xl text-blue-100 mb-8 font-light">
+
+            <p className={`text-xl md:text-2xl text-blue-100 mb-8 font-light anim-slide-up anim-delay-2 ${mounted ? '' : 'opacity-0'}`}
+              style={{ animationPlayState: mounted ? 'running' : 'paused' }}>
               {header.subtitle}
             </p>
 
-            {/* Metadata */}
-            <div className="flex items-center justify-center space-x-6 text-blue-200">
+            <div className={`flex items-center justify-center space-x-6 text-blue-200 anim-fade-in anim-delay-3 ${mounted ? '' : 'opacity-0'}`}
+              style={{ animationPlayState: mounted ? 'running' : 'paused' }}>
               <span className="flex items-center">
                 <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
@@ -269,41 +266,47 @@ export function CaseStudy({ caseStudyData }) {
         <Container>
           <div className="max-w-4xl mx-auto">
             {sections.map((section, index) => (
-              <Section key={section.id || index} section={section} />
+              <Section key={section.id || index} section={section} index={index} />
             ))}
           </div>
         </Container>
       </main>
 
       {/* Footer CTA */}
-      <section className="bg-gradient-to-br from-blue-600 to-blue-800 text-white py-12">
-        <Container>
-          <div className="max-w-4xl mx-auto text-center">
-            <h3 className="text-2xl font-bold mb-4">
-              Interested in Building with the Vaani Dataset?
-            </h3>
-            <p className="text-slate-300 mb-8 text-lg">
-              Discover how your organization can leverage India&apos;s largest speech dataset for breakthrough AI applications.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="https://huggingface.co/datasets/ARTPARK-IISc/Vaani"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-lg text-slate-900 bg-white hover:bg-slate-100 transition-colors"
-              >
-                Access Dataset
-              </a>
-              <Link
-                href="/case-studies"
-                className="inline-flex items-center justify-center px-8 py-3 border border-white text-base font-medium rounded-lg text-white hover:bg-white hover:text-slate-900 transition-colors"
-              >
-                View More Case Studies
-              </Link>
-            </div>
+      <ScrollReveal animClass="scale-in">
+        <section className="relative bg-gradient-to-br from-blue-700 via-blue-600 to-indigo-700 text-white py-16 overflow-hidden">
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute -top-10 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 left-10 w-48 h-48 bg-indigo-900/20 rounded-full blur-2xl" />
           </div>
-        </Container>
-      </section>
+          <Container>
+            <div className="max-w-4xl mx-auto text-center relative z-10">
+              <h3 className="text-2xl md:text-3xl font-bold mb-4">
+                Interested in Building with the Vaani Dataset?
+              </h3>
+              <p className="text-blue-100 mb-10 text-lg max-w-2xl mx-auto">
+                Discover how your organization can leverage India&apos;s largest speech dataset for breakthrough AI applications.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <a
+                  href="https://huggingface.co/datasets/ARTPARK-IISc/Vaani"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-semibold rounded-full text-blue-700 bg-white hover:bg-blue-50 transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+                >
+                  Access Dataset
+                </a>
+                <Link
+                  href="/case-studies"
+                  className="inline-flex items-center justify-center px-8 py-3 border-2 border-white/70 text-base font-semibold rounded-full text-white hover:bg-white hover:text-blue-700 transition-all duration-200 hover:-translate-y-0.5"
+                >
+                  View More Case Studies
+                </Link>
+              </div>
+            </div>
+          </Container>
+        </section>
+      </ScrollReveal>
     </div>
   );
 }
