@@ -30,14 +30,18 @@ function StatCard({ title, value, icon, delay, inView }) {
         transition: 'opacity 0.65s ease, transform 0.65s ease',
       }}
     >
-      <div className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 h-full">
-        <div className="flex items-center gap-2 mb-3">
-          <div className="w-8 h-8 rounded-lg flex items-center justify-center text-[#212191]" style={{ background: 'rgba(33,33,145,0.08)' }}>
+      <div
+        className="relative bg-white rounded-2xl p-5 border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 h-full overflow-hidden group"
+      >
+        <div className="absolute top-0 left-0 right-0 h-0.5 rounded-t-2xl" style={{ background: 'linear-gradient(90deg, #212191, #9B99E8)' }} />
+        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-2xl" style={{ background: 'linear-gradient(135deg, rgba(33,33,145,0.03) 0%, transparent 60%)' }} />
+        <div className="relative">
+          <div className="w-9 h-9 rounded-xl flex items-center justify-center text-[#212191] mb-3" style={{ background: 'rgba(33,33,145,0.08)' }}>
             {icon}
           </div>
-          <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider leading-tight">{title}</span>
+          <p className="text-[2rem] font-extrabold text-gray-900 leading-none tracking-tight mb-1.5">{value || '—'}</p>
+          <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">{title}</span>
         </div>
-        <p className="text-2xl font-bold text-gray-900 mt-1">{value || '—'}</p>
       </div>
     </div>
   );
@@ -84,7 +88,9 @@ export function Stats({ stats }) {
   ];
 
   return (
-    <section id="About" aria-label="About Project VAANI" className="py-24 sm:py-32 bg-[#FAFAFA]">
+    <section id="About" aria-label="About Project VAANI" className="relative py-24 sm:py-32 bg-[#FAFAFA] overflow-hidden">
+      {/* Background accent */}
+      <div className="absolute top-0 right-0 w-[40vw] h-[40vw] max-w-lg max-h-lg rounded-full opacity-[0.04] pointer-events-none" style={{ background: 'radial-gradient(circle, #212191 0%, transparent 70%)', transform: 'translate(30%, -30%)' }} />
       <Container>
         <div
           ref={headRef}

@@ -124,6 +124,24 @@ body {
     100% { transform: translateX(-50%); }
 }
 
+@keyframes blobFloat1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(30px, -22px) scale(1.05); }
+  66%  { transform: translate(-18px, 20px) scale(0.97); }
+}
+@keyframes blobFloat2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  40%  { transform: translate(-28px, -28px) scale(1.07); }
+  70%  { transform: translate(22px, 18px) scale(0.95); }
+}
+@keyframes blobFloat3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(18px, -22px) scale(1.04); }
+}
+.blob-1 { animation: blobFloat1 13s ease-in-out infinite; }
+.blob-2 { animation: blobFloat2 17s ease-in-out infinite; }
+.blob-3 { animation: blobFloat3 20s ease-in-out infinite; }
+
 @keyframes wiggleAround {
     from {
         transform: perspective(9cm) rotateY(350deg);

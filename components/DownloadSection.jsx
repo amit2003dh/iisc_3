@@ -43,49 +43,69 @@ export function DownloadSection() {
           }}
         >
           <div
-            className="relative px-8 py-16 sm:px-16 sm:py-20 text-center"
+            className="relative px-8 py-16 sm:px-16 sm:py-20"
             style={{
               background: 'linear-gradient(135deg, #212191 0%, #11115B 50%, #1a1a8c 100%)',
             }}
           >
+            {/* Background decorations */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
               <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full opacity-10" style={{ background: 'radial-gradient(circle, #fff 0%, transparent 70%)' }} />
-              <div className="absolute -bottom-16 -left-16 w-80 h-80 rounded-full opacity-10" style={{ background: 'radial-gradient(circle, #9B99E8 0%, transparent 70%)' }} />
+              <div className="absolute -bottom-16 -left-16 w-80 h-80 rounded-full opacity-15" style={{ background: 'radial-gradient(circle, #9B99E8 0%, transparent 70%)' }} />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-5" style={{ background: 'radial-gradient(circle, #fff 0%, transparent 60%)' }} />
+              {/* Dot grid */}
+              <div className="absolute inset-0 opacity-[0.06]" style={{ backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
             </div>
 
-            <div className="relative max-w-2xl mx-auto">
-              <p className="text-lg sm:text-xl text-blue-100 leading-relaxed mb-8">
-                Our comprehensive multimodal dataset for Indian languages is{' '}
-                <span className="font-bold text-white">now exclusively available on Hugging Face</span>! Access and download the dataset directly for seamless integration and ease of use in your AI projects.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <Link
-                  href="https://huggingface.co/datasets/ARTPARK-IISc/Vaani"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2.5 text-[#212191] font-semibold bg-white px-7 py-3 rounded-full hover:bg-blue-50 transition-colors shadow-lg text-base"
-                >
-                  <img
-                    src="https://img.icons8.com/fluency/48/hugging-face_app.png"
-                    alt="Hugging Face"
-                    className="h-5 w-5"
-                  />
-                  Download Data
-                </Link>
+            <div className="relative flex flex-col lg:flex-row items-center gap-12">
+              {/* Left: stats pills */}
+              <div className="flex-1 flex flex-col items-center lg:items-start gap-6">
+                <div>
+                  <p className="text-xs font-semibold text-blue-300 uppercase tracking-widest mb-2">Open Source Dataset</p>
+                  <h3 className="text-3xl sm:text-4xl font-bold text-white leading-tight">
+                    India's largest<br />speech dataset — free.
+                  </h3>
+                </div>
+                <div className="flex flex-wrap gap-3">
+                  {[
+                    { val: '150K+', lab: 'Audio Hours' },
+                    { val: '773', lab: 'Districts' },
+                    { val: 'CC-BY-4.0', lab: 'License' },
+                  ].map((s) => (
+                    <div key={s.lab} className="flex flex-col items-center bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl px-5 py-3">
+                      <span className="text-xl font-extrabold text-white">{s.val}</span>
+                      <span className="text-xs text-blue-200 uppercase tracking-wider">{s.lab}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
 
-              <p className="mt-8 text-sm text-blue-200">
-                Available under license:{' '}
-                <a
-                  href="https://creativecommons.org/licenses/by/4.0/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-white underline hover:text-blue-100 transition-colors"
-                >
-                  CC-BY-4.0
-                </a>
-              </p>
+              {/* Right: CTA */}
+              <div className="flex-1 flex flex-col items-center lg:items-end gap-6 text-center lg:text-right">
+                <p className="text-lg text-blue-100 leading-relaxed max-w-sm">
+                  Our comprehensive multimodal dataset for Indian languages is{' '}
+                  <span className="font-bold text-white">now exclusively on Hugging Face</span>.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <Link
+                    href="https://huggingface.co/datasets/ARTPARK-IISc/Vaani"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2.5 text-[#212191] font-semibold bg-white px-7 py-3.5 rounded-full hover:bg-blue-50 transition-all shadow-xl hover:-translate-y-0.5 text-base"
+                  >
+                    <img src="https://img.icons8.com/fluency/48/hugging-face_app.png" alt="Hugging Face" className="h-5 w-5" />
+                    Download Dataset
+                  </Link>
+                  <Link
+                    href="https://creativecommons.org/licenses/by/4.0/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-white font-semibold border border-white/30 px-7 py-3.5 rounded-full hover:bg-white/10 transition-all text-base"
+                  >
+                    View License
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         </div>

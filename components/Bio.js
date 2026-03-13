@@ -30,7 +30,6 @@ const bioData = [
 
 function BioCard({ item, index }) {
   const [ref, inView] = useInView();
-  const isEven = index % 2 === 0;
 
   return (
     <div
@@ -40,33 +39,31 @@ function BioCard({ item, index }) {
         transform: inView ? 'translateY(0)' : 'translateY(36px)',
         transition: `opacity 0.75s ease ${index * 120}ms, transform 0.75s ease ${index * 120}ms`,
       }}
-      className="bg-white rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition-shadow duration-400 overflow-hidden"
+      className="group bg-white rounded-3xl border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden flex flex-col"
     >
-      <div className={`flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} items-stretch`}>
-        <div className="md:w-64 lg:w-72 flex-shrink-0">
-          <div className="relative h-72 md:h-full w-full overflow-hidden">
-            <Image
-              className="object-cover w-full h-full"
-              src={item.image}
-              alt={item.name}
-              fill
-              sizes="(min-width: 768px) 18rem, 100vw"
-            />
-            <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, transparent 60%, rgba(255,255,255,0.15))' }} />
-          </div>
+      <div className="relative h-64 overflow-hidden">
+        <Image
+          className="object-cover object-top w-full h-full group-hover:scale-105 transition-transform duration-700"
+          src={item.image}
+          alt={item.name}
+          fill
+          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+        />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.55))' }} />
+        <div className="absolute bottom-0 left-0 right-0 p-5">
+          <p className="text-white font-bold text-xl leading-tight drop-shadow">{item.name}</p>
+          <p className="text-blue-200 text-xs font-medium mt-0.5">{item.subBio}</p>
         </div>
+      </div>
 
-        <div className="flex-1 p-8 lg:p-10 flex flex-col justify-center">
-          <div className="mb-1">
-            <span className="text-xs font-semibold text-[#212191] uppercase tracking-widest">Project Vaani</span>
-          </div>
-          <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mt-1 mb-1">
-            {item.name}
-          </h3>
-          <p className="text-sm font-semibold text-gray-500 mb-5">{item.subBio}</p>
-          <div className="w-10 h-px bg-[#212191] mb-5 opacity-40" />
-          <p className="text-gray-600 leading-relaxed text-base">{item.bio}</p>
+      <div className="flex-1 p-6 flex flex-col">
+        <div className="flex items-center gap-2 mb-4">
+          <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#212191] uppercase tracking-widest">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#212191]" />
+            Project Vaani
+          </span>
         </div>
+        <p className="text-gray-500 leading-relaxed text-sm flex-1">{item.bio}</p>
       </div>
     </div>
   );
@@ -74,7 +71,7 @@ function BioCard({ item, index }) {
 
 function Bio() {
   return (
-    <div className="space-y-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {bioData.map((item, index) => (
         <BioCard key={item.id} item={item} index={index} />
       ))}

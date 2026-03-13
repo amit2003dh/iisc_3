@@ -69,9 +69,38 @@ export function Hero() {
   return (
     <section
       id="Home"
-      className="hero-gradient min-h-screen flex flex-col items-center justify-center pt-20 pb-16 px-4 text-center overflow-hidden"
+      className="relative min-h-screen flex flex-col items-center justify-center pt-20 pb-16 px-4 text-center overflow-hidden hero-gradient"
     >
-      <div className="flex flex-col items-center gap-8 max-w-4xl mx-auto w-full">
+      {/* Animated floating blobs */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div
+          className="blob-1 absolute top-1/4 left-[15%] w-72 h-72 rounded-full opacity-50"
+          style={{ background: 'radial-gradient(circle, rgba(155,153,232,0.55) 0%, transparent 70%)' }}
+        />
+        <div
+          className="blob-2 absolute top-[20%] right-[12%] w-96 h-96 rounded-full opacity-35"
+          style={{ background: 'radial-gradient(circle, rgba(232,132,90,0.45) 0%, transparent 70%)' }}
+        />
+        <div
+          className="blob-3 absolute bottom-[25%] left-[30%] w-80 h-80 rounded-full opacity-30"
+          style={{ background: 'radial-gradient(circle, rgba(33,33,145,0.25) 0%, transparent 70%)' }}
+        />
+        <div
+          className="blob-1 absolute bottom-[15%] right-[20%] w-56 h-56 rounded-full opacity-25"
+          style={{ background: 'radial-gradient(circle, rgba(212,149,107,0.4) 0%, transparent 70%)', animationDuration: '19s' }}
+        />
+      </div>
+
+      {/* Dot grid overlay */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-[0.03]"
+        style={{
+          backgroundImage: 'radial-gradient(circle, #212191 1px, transparent 1px)',
+          backgroundSize: '40px 40px',
+        }}
+      />
+
+      <div className="relative z-10 flex flex-col items-center gap-8 max-w-4xl mx-auto w-full">
 
         <div
           className="anim-fade-in"
@@ -81,7 +110,7 @@ export function Hero() {
         </div>
 
         <div {...anim(100)}>
-          <div className="inline-flex items-center gap-2 border border-[#212191]/30 rounded-full px-4 py-1.5 text-sm text-[#212191] bg-white/60 backdrop-blur-sm shadow-sm">
+          <div className="inline-flex items-center gap-2 border border-[#212191]/25 rounded-full px-4 py-1.5 text-sm text-[#212191] bg-white/70 backdrop-blur-sm shadow-sm">
             <span className="w-2 h-2 rounded-full bg-[#212191] animate-pulse" />
             India's Sovereign Language Dataset
           </div>
@@ -89,7 +118,13 @@ export function Hero() {
 
         <div {...anim(230)}>
           <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight text-gray-900 leading-tight">
-            Capturing the language landscape for an inclusive digital India
+            Capturing the{' '}
+            <span className="relative inline-block">
+              <span className="relative z-10" style={{ background: 'linear-gradient(135deg, #212191 0%, #9B99E8 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                language landscape
+              </span>
+            </span>
+            {' '}for an inclusive digital India
           </h1>
         </div>
 
@@ -102,50 +137,67 @@ export function Hero() {
         </div>
 
         <div {...anim(520)}>
-          <Link
-            href="https://huggingface.co/datasets/ARTPARK-IISc/VAANI"
-            target="_blank"
-            className="inline-flex items-center gap-2 text-base font-semibold text-white bg-gray-900 hover:bg-[#212191] transition-all duration-300 px-8 py-3.5 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-0.5"
-          >
-            Experience Vaani
-          </Link>
+          <div className="flex flex-col sm:flex-row items-center gap-4">
+            <Link
+              href="https://huggingface.co/datasets/ARTPARK-IISc/VAANI"
+              target="_blank"
+              className="inline-flex items-center gap-2 text-base font-semibold text-white px-8 py-3.5 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300"
+              style={{ background: 'linear-gradient(135deg, #212191 0%, #3b3bb5 100%)' }}
+            >
+              Experience Vaani
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </Link>
+            <Link
+              href="#About"
+              className="inline-flex items-center gap-2 text-base font-semibold text-gray-700 px-8 py-3.5 rounded-full border border-gray-200 bg-white/70 backdrop-blur-sm hover:bg-white hover:border-[#212191]/30 hover:text-[#212191] transition-all duration-300 hover:-translate-y-0.5"
+            >
+              Learn More
+            </Link>
+          </div>
+        </div>
+
+        {/* Stats row */}
+        <div {...anim(640)}>
+          <div className="flex flex-wrap justify-center gap-8 mt-4">
+            {[
+              { value: '150K+', label: 'Audio Hours' },
+              { value: '773', label: 'Districts' },
+              { value: '100+', label: 'Languages' },
+            ].map((s) => (
+              <div key={s.label} className="text-center">
+                <p className="text-2xl font-bold text-[#212191]">{s.value}</p>
+                <p className="text-xs text-gray-400 uppercase tracking-wider mt-0.5">{s.label}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
+      {/* Partner logos */}
       <div
-        className="mt-24 w-full max-w-5xl mx-auto anim-fade-in"
-        style={{ animationPlayState: mounted ? "running" : "paused", animationDelay: "700ms", opacity: mounted ? undefined : 0 }}
+        className="relative z-10 mt-20 w-full max-w-5xl mx-auto anim-fade-in"
+        style={{ animationPlayState: mounted ? "running" : "paused", animationDelay: "800ms", opacity: mounted ? undefined : 0 }}
       >
-        <p className="text-xs font-semibold tracking-widest text-gray-400 uppercase mb-8 text-center">
-          India Builds with Vaani
-        </p>
+        <div className="flex items-center gap-4 mb-8 justify-center">
+          <div className="h-px flex-1 max-w-24 bg-gray-200" />
+          <p className="text-xs font-semibold tracking-widest text-gray-400 uppercase">
+            India Builds with Vaani
+          </p>
+          <div className="h-px flex-1 max-w-24 bg-gray-200" />
+        </div>
         <div className="flex flex-wrap items-center justify-center gap-10">
-          <Link
-            href="https://www.iisc.ac.in/"
-            target="_blank"
-            className="opacity-60 hover:opacity-100 transition-all duration-300 grayscale hover:grayscale-0 hover:-translate-y-1"
-          >
+          <Link href="https://www.iisc.ac.in/" target="_blank" className="opacity-50 hover:opacity-100 transition-all duration-300 grayscale hover:grayscale-0 hover:-translate-y-1">
             <Image src={IIScLogo} alt="IISc" width={52} height={52} className="object-contain h-12 w-auto" />
           </Link>
-          <Link
-            href="https://artpark.in/"
-            target="_blank"
-            className="opacity-60 hover:opacity-100 transition-all duration-300 grayscale hover:grayscale-0 hover:-translate-y-1"
-          >
+          <Link href="https://artpark.in/" target="_blank" className="opacity-50 hover:opacity-100 transition-all duration-300 grayscale hover:grayscale-0 hover:-translate-y-1">
             <Image src={ArtparkLogo} alt="Artpark" width={180} height={48} className="object-contain h-10 w-auto" />
           </Link>
-          <Link
-            href="https://cloud.google.com/"
-            target="_blank"
-            className="opacity-60 hover:opacity-100 transition-all duration-300 grayscale hover:grayscale-0 hover:-translate-y-1"
-          >
+          <Link href="https://cloud.google.com/" target="_blank" className="opacity-50 hover:opacity-100 transition-all duration-300 grayscale hover:grayscale-0 hover:-translate-y-1">
             <Image src={GoogleLogo} alt="Google" width={120} height={40} className="object-contain h-8 w-auto" />
           </Link>
-          <Link
-            href="https://bhashini.gov.in/"
-            target="_blank"
-            className="opacity-60 hover:opacity-100 transition-all duration-300 grayscale hover:grayscale-0 hover:-translate-y-1"
-          >
+          <Link href="https://bhashini.gov.in/" target="_blank" className="opacity-50 hover:opacity-100 transition-all duration-300 grayscale hover:grayscale-0 hover:-translate-y-1">
             <Image src={BhasniLogo} alt="Bhashini" width={80} height={64} className="object-contain h-12 w-auto" />
           </Link>
         </div>
